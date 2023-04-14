@@ -6,7 +6,7 @@ import { db } from '../firebase'
 import { FaPlus, FaTimes } from 'react-icons/fa'
 
 function Item({ id, name, amounts }) {
-  const [amount, setAmount] = useState(amounts)
+  const [amount, setAmount] = useState(parseInt(amounts))
 
   const handleAdd = () => {
     setAmount(amount + 1)

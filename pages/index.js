@@ -57,7 +57,7 @@ export default function Home() {
         />
       ))}
 
-      <footer className='fixed bottom-0 z-10 flex w-full items-center gap-4 bg-slate-500 px-4 py-2'>
+      <footer className='sticky bottom-0 z-10 flex w-full items-center gap-4 bg-slate-500 px-4 py-2'>
         <div className='basis-3/5'>
           <input
             className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
