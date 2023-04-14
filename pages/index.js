@@ -44,7 +44,7 @@ export default function Home() {
 
   return (
     <main className='container mx-auto'>
-      <h1 className='flex items-center justify-center p-4 font-bold uppercase text-2xl border-b border-green-500 bg-green-100'>
+      <h1 className='flex items-center justify-center border-b border-green-500 bg-green-100 p-4 text-2xl font-bold uppercase'>
         Mercadona
       </h1>
 
@@ -57,10 +57,10 @@ export default function Home() {
         />
       ))}
 
-      <footer className='fixed bottom-0 w-full bg-slate-500 px-4 py-2 flex items-center z-10 gap-4'>
+      <footer className='fixed bottom-0 z-10 flex w-full items-center gap-4 bg-slate-500 px-4 py-2'>
         <div className='basis-3/5'>
           <input
-            className='bg-slate-50 flex items-center justify-center px-4 py-2 w-full rounded-lg shadow-md'
+            className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
             type='text'
             placeholder='Nombre'
             value={name}
@@ -69,7 +69,7 @@ export default function Home() {
         </div>
         <div className='basis-1/5'>
           <input
-            className='bg-slate-50 flex items-center justify-center px-4 py-2 w-full rounded-lg shadow-md'
+            className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
             type='number'
             placeholder='Cantidad'
             value={amount}
@@ -78,7 +78,7 @@ export default function Home() {
         </div>
         <div className='basis-2/5'>
           <button
-            className='bg-blue-400 flex items-center justify-center font-bold px-4 py-2 uppercase w-full rounded-lg shadow-md'
+            className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md'
             onClick={handleAddToDb}
           >
             Añadir

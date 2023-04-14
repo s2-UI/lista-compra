@@ -27,18 +27,22 @@ function Item({ id, name, amounts }) {
   }, [amount])
 
   return (
-    <section className={`flex items-center gap-4 w-full py-2 px-4 border-b border-slate-50 ${amount == 0 ? 'bg-slate-200' : 'bg-green-200'}`}>
+    <section
+      className={`flex w-full items-center gap-4 border-b border-slate-50 px-4 py-2 ${
+        amount == 0 ? 'bg-slate-200' : 'bg-green-200'
+      }`}
+    >
       <div className={`basis-3/5 whitespace-nowrap ${amount == 0 ? '' : ''}`}>{name}</div>
       <div className={`basis-1/5 text-center ${amount == 0 ? 'opacity-20' : 'font-semibold'}`}>{amount}</div>
-      <section className='basis-1/5 flex justify-end gap-4'>
+      <section className='flex basis-1/5 justify-end gap-4'>
         <button
-          className='px-4 border flex justify-center items-center bg-green-400 text-green-600 py-2 rounded-lg shadow-md'
+          className='flex items-center justify-center rounded-lg border bg-green-400 px-4 py-2 text-green-600 shadow-md'
           onClick={handleAdd}
         >
           <FaPlus />
         </button>
         <button
-          className='px-4 border flex justify-center items-center bg-red-400 text-red-600 py-2 rounded-lg shadow-md'
+          className='flex items-center justify-center rounded-lg border bg-red-400 px-4 py-2 text-red-600 shadow-md'
           onClick={handleRemove}
         >
           <FaTimes />
