@@ -1,46 +1,38 @@
 import Item from '@/Components/Item'
 import { useState, useEffect } from 'react'
 
-import { collection, getDocs, addDoc, onSnapshot } from 'firebase/firestore'
+import { collection, onSnapshot, addDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 
 export default function Home() {
-  const [products, setProduct] = useState([])
-
-  const fetchPost = async () => {
-    await getDocs(collection(db, 'productos')).then(querySnapshot => {
-      const newData = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
-      setProduct(newData)
-    })
-  }
-
-  useEffect(() => {
-    fetchPost()
-  }, [])
-
+  const [products, setProducts] = useState([])
   const [name, setName] = useState('')
   const [amount, setAmount] = useState('')
-
-  const handleAddToDb = async () => {
-    try {
-      const docRef = await addDoc(collection(db, 'productos'), {
-        name: name,
-        amount: amount,
-      })
-      console.log('Document written with ID: ', docRef.id)
-      setName('')
-      setAmount('')
-    } catch (e) {
-      console.error('Error adding document: ', e)
-    }
-  }
+  const [selectedCategory, setSelectedCategory] = useState('')
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'productos'), () => {
-      fetchPost()
+    const unsubscribe = onSnapshot(collection(db, 'productos'), snapshot => {
+      const newData = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }))
+      const sortedData = newData.sort((a, b) => (a.category > b.category ? 1 : -1))
+      setProducts(sortedData)
     })
     return () => unsubscribe()
   }, [])
+
+  const handleAddToDb = async () => {
+    if (name === '' || amount === '' || selectedCategory === '') return
+
+    try {
+      await addDoc(collection(db, 'productos'), { name, amount, category: selectedCategory })
+      setName('')
+      setAmount('')
+      setSelectedCategory('')
+    } catch (error) {
+      console.error('Error adding document: ', error)
+    }
+  }
+
+  const uniqueCategories = {}
 
   return (
     <main className='container mx-auto'>
@@ -48,14 +40,31 @@ export default function Home() {
         Mercadona
       </h1>
 
-      {products?.map(product => (
-        <Item
-          key={product.id}
-          id={product.id}
-          name={product.name}
-          amounts={product.amount}
-        />
-      ))}
+      {products.map(({ id, name, amount, category }) => {
+        if (!(category in uniqueCategories)) {
+          uniqueCategories[category] = true
+          return (
+            <>
+              <h2>{category}</h2>
+              <Item
+                key={id}
+                id={id}
+                name={name}
+                amounts={amount}
+              />
+            </>
+          )
+        } else {
+          return (
+            <Item
+              key={id}
+              id={id}
+              name={name}
+              amounts={amount}
+            />
+          )
+        }
+      })}
 
       <footer className='sticky bottom-0 z-10 flex w-full items-center gap-4 bg-slate-500 px-4 py-2'>
         <div className='basis-3/5'>
@@ -76,10 +85,24 @@ export default function Home() {
             onChange={e => setAmount(e.target.value)}
           />
         </div>
+        <select
+          className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
+          value={selectedCategory}
+          onChange={e => setSelectedCategory(e.target.value)}
+        >
+          <option value=''>Seleccionar categoría</option>
+          <option value='empaquetados'>Empaquetados</option>
+          <option value='bebida'>Bebida</option>
+          <option value='verduras'>Verduras</option>
+          <option value='embutidos'>Embutidos</option>
+          <option value='pasta'>Pasta</option>
+          <option value='aseo'>Aseo</option>
+        </select>
         <div className='basis-2/5'>
           <button
-            className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md'
+            className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md disabled:text-slate-50 disabled:opacity-20'
             onClick={handleAddToDb}
+            disabled={name === '' || amount === ''}
           >
             Añadir
           </button>
