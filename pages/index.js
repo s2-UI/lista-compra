@@ -45,7 +45,7 @@ export default function Home() {
           uniqueCategories[category] = true
           return (
             <>
-              <h2>{category}</h2>
+              <h2 className='px-4 pb-2 pt-4 font-semibold capitalize'>{category}</h2>
               <Item
                 key={id}
                 id={id}
@@ -66,17 +66,15 @@ export default function Home() {
         }
       })}
 
-      <footer className='sticky bottom-0 z-10 flex w-full items-center gap-4 bg-slate-500 px-4 py-2'>
-        <div className='basis-3/5'>
-          <input
-            className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
-            type='text'
-            placeholder='Nombre'
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-        </div>
-        <div className='basis-1/5'>
+      <footer className='sticky bottom-0 z-10 flex w-full flex-col items-center gap-4 bg-slate-500 px-4 py-2'>
+        <input
+          className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
+          type='text'
+          placeholder='Nombre'
+          value={name}
+          onChange={e => setName(e.target.value)}
+        />
+        <div className='flex gap-4'>
           <input
             className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
             type='number'
@@ -84,29 +82,27 @@ export default function Home() {
             value={amount}
             onChange={e => setAmount(e.target.value)}
           />
-        </div>
-        <select
-          className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
-          value={selectedCategory}
-          onChange={e => setSelectedCategory(e.target.value)}
-        >
-          <option value=''>Seleccionar categoría</option>
-          <option value='empaquetados'>Empaquetados</option>
-          <option value='bebida'>Bebida</option>
-          <option value='verduras'>Verduras</option>
-          <option value='embutidos'>Embutidos</option>
-          <option value='pasta'>Pasta</option>
-          <option value='aseo'>Aseo</option>
-        </select>
-        <div className='basis-2/5'>
-          <button
-            className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md disabled:text-slate-50 disabled:opacity-20'
-            onClick={handleAddToDb}
-            disabled={name === '' || amount === ''}
+          <select
+            className='flex basis-1/5 items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
+            value={selectedCategory}
+            onChange={e => setSelectedCategory(e.target.value)}
           >
-            Añadir
-          </button>
+            <option value=''>Seleccionar categoría</option>
+            <option value='empaquetados'>Empaquetados</option>
+            <option value='bebida'>Bebida</option>
+            <option value='verduras'>Verduras</option>
+            <option value='embutidos'>Embutidos</option>
+            <option value='pasta'>Pasta</option>
+            <option value='aseo'>Aseo</option>
+          </select>
         </div>
+        <button
+          className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md disabled:text-slate-50 disabled:opacity-20'
+          onClick={handleAddToDb}
+          disabled={name === '' || amount === ''}
+        >
+          Añadir
+        </button>
       </footer>
     </main>
   )
