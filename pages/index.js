@@ -108,6 +108,7 @@ export default function Home() {
             <option value='embutidos'>Embutidos</option>
             <option value='pasta'>Pasta</option>
             <option value='aseo'>Aseo</option>
+            <option value='congelados'>Congelados</option>
           </select>
         </div>
         <button
