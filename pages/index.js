@@ -1,9 +1,10 @@
-import Item from '@/Components/Item'
+import Header from '@/components/Header'
+import Item from '@/components/Item'
+
 import { useState, useEffect } from 'react'
 
 import { collection, onSnapshot, addDoc } from 'firebase/firestore'
 import { db } from '../firebase'
-import Header from '@/Components/Header'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -48,7 +49,7 @@ export default function Home() {
   uniqueCategories.sort()
 
   return (
-    <main className='container mx-auto'>
+    <main className='container mx-auto w-full text-left text-sm text-gray-400'>
       <Header
         name={name}
         amount={amount}
@@ -62,7 +63,7 @@ export default function Home() {
 
       {uniqueCategories.map(category => (
         <>
-          <h2 className='px-4 pb-2 pt-4 font-semibold capitalize'>{category}</h2>
+          <h2 className='bg-gray-900 px-4 py-2 text-left font-semibold capitalize text-white'>{category}</h2>
           {filteredProducts
             .filter(product => product.category === category)
             .sort((a, b) => a.name.localeCompare(b.name))

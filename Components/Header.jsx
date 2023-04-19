@@ -1,3 +1,5 @@
+import styles from '@/styles/header.module.scss'
+
 function Header({
   name,
   amount,
@@ -9,27 +11,30 @@ function Header({
   handleNameFilter,
 }) {
   return (
-    <header className='sticky top-0 z-10 flex w-full flex-col items-center gap-4 bg-slate-500 p-4'>
-      <input
-        className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
-        type='text'
-        placeholder='Nombre'
-        value={name}
-        onChange={e => {
-          setName(e.target.value)
-          handleNameFilter(e)
-        }}
-      />
-      <div className='flex gap-4'>
+    <header className={styles.root}>
+      <div className='flex gap-4 w-full'>
         <input
-          className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
+          className={styles.input}
+          type='text'
+          placeholder='Nombre'
+          value={name}
+          onChange={e => {
+            setName(e.target.value)
+            handleNameFilter(e)
+          }}
+        />
+        <input
+          className={`${styles.input} basis-2/5`}
           type='number'
           placeholder='Cantidad'
           value={amount}
           onChange={e => setAmount(e.target.value)}
         />
+      </div>
+
+      <div className='flex gap-4 w-full'>
         <select
-          className='flex basis-1/5 items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
+          className={`${styles.select} basis-3/5`}
           value={selectedCategory}
           onChange={e => setSelectedCategory(e.target.value)}
         >
@@ -43,14 +48,14 @@ function Header({
           <option value='pasta'>Pasta</option>
           <option value='verduras'>Verduras</option>
         </select>
+        <button
+          className={`${styles.button} basis-2/5`}
+          onClick={handleAddToDb}
+          disabled={name === '' || amount === '' || selectedCategory === ''}
+        >
+          Añadir
+        </button>
       </div>
-      <button
-        className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md disabled:text-slate-50 disabled:opacity-20'
-        onClick={handleAddToDb}
-        disabled={name === '' || amount === '' || selectedCategory === ''}
-      >
-        Añadir
-      </button>
     </header>
   )
 }

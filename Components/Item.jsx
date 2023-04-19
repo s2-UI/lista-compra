@@ -25,7 +25,7 @@ function Item({ id, name, amounts }) {
   return (
     <section className={`${styles.root} ${amount !== 0 ? styles.selected : ''}`}>
       <div className={styles.name}>{name}</div>
-      <div className={`${styles.amount} ${amount !== 0 ? styles.selected : ''}`}>{amount}</div>
+      <div className={styles.amount}>{amount}</div>
       <section className={styles.buttons}>
         <button
           className={styles.button}
