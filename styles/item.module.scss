@@ -22,10 +22,10 @@
   }
 
   &.selected {
-    @apply bg-gradient-to-r from-green-950 via-green-900 to-green-950 border-green-700;
+    @apply bg-gradient-to-r from-green-900 via-green-800 to-green-900 border-green-700;
 
     .name {
-      @apply font-bold text-green-700;
+      @apply font-bold text-green-500;
     }
 
     .amount {
@@ -33,7 +33,7 @@
     }
 
     .button_red {
-      @apply pointer-events-auto bg-red-400;
+      @apply pointer-events-auto bg-red-400 text-red-200;
     }
   }
 }
