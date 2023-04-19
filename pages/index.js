@@ -63,7 +63,12 @@ export default function Home() {
 
       {uniqueCategories.map(category => (
         <>
-          <h2 className='bg-gray-900 px-4 py-2 text-left font-semibold capitalize text-white'>{category}</h2>
+          {name === '' ? (
+            <h2 className='bg-gray-900 px-4 py-2 text-left font-semibold capitalize text-white'>{category}</h2>
+          ) : (
+            ''
+          )}
+
           {filteredProducts
             .filter(product => product.category === category)
             .sort((a, b) => a.name.localeCompare(b.name))
