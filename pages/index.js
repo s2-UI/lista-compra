@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 import { collection, onSnapshot, addDoc } from 'firebase/firestore'
 import { db } from '../firebase'
+import Header from '@/Components/Header'
 
 export default function Home() {
   const [products, setProducts] = useState([])
@@ -43,83 +44,38 @@ export default function Home() {
     setFilteredProducts(filtered)
   }
 
-  const uniqueCategories = {}
+  const uniqueCategories = [...new Set(products.map(product => product.category))]
+  uniqueCategories.sort()
 
   return (
-    <main className='container mx-auto pb-60'>
-      <h1 className='flex items-center justify-center border-b border-green-500 bg-green-100 p-4 text-2xl font-bold uppercase'>
-        Mercadona
-      </h1>
+    <main className='container mx-auto'>
+      <Header
+        name={name}
+        amount={amount}
+        selectedCategory={selectedCategory}
+        setName={setName}
+        setAmount={setAmount}
+        setSelectedCategory={setSelectedCategory}
+        handleAddToDb={handleAddToDb}
+        handleNameFilter={handleNameFilter}
+      />
 
-      {filteredProducts.map(({ id, name, amount, category }) => {
-        if (!(category in uniqueCategories)) {
-          uniqueCategories[category] = true
-          return (
-            <>
-              <h2 className='px-4 pb-2 pt-4 font-semibold capitalize'>{category}</h2>
+      {uniqueCategories.map(category => (
+        <>
+          <h2 className='px-4 pb-2 pt-4 font-semibold capitalize'>{category}</h2>
+          {filteredProducts
+            .filter(product => product.category === category)
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(({ id, name, amount }) => (
               <Item
                 key={id}
                 id={id}
                 name={name}
                 amounts={amount}
               />
-            </>
-          )
-        } else {
-          return (
-            <Item
-              key={id}
-              id={id}
-              name={name}
-              amounts={amount}
-            />
-          )
-        }
-      })}
-
-      <footer className='fixed bottom-0 z-10 flex w-full flex-col items-center gap-4 bg-slate-500 px-4 py-2'>
-        <input
-          className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
-          type='text'
-          placeholder='Nombre'
-          value={name}
-          onChange={e => {
-            setName(e.target.value)
-            handleNameFilter(e)
-          }}
-        />
-        <div className='flex gap-4'>
-          <input
-            className='flex w-full items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
-            type='number'
-            placeholder='Cantidad'
-            value={amount}
-            onChange={e => setAmount(e.target.value)}
-          />
-          <select
-            className='flex basis-1/5 items-center justify-center rounded-lg bg-slate-50 px-4 py-2 shadow-md'
-            value={selectedCategory}
-            onChange={e => setSelectedCategory(e.target.value)}
-          >
-            <option value=''>Seleccionar categoría</option>
-            <option value='empaquetados'>Empaquetados</option>
-            <option value='bebida'>Bebida</option>
-            <option value='verduras'>Verduras</option>
-            <option value='embutidos'>Embutidos</option>
-            <option value='pasta'>Pasta</option>
-            <option value='aseo'>Aseo</option>
-            <option value='congelados'>Congelados</option>
-            <option value='carne'>Carne</option>
-          </select>
-        </div>
-        <button
-          className='flex w-full items-center justify-center rounded-lg bg-blue-400 px-4 py-2 font-bold uppercase shadow-md disabled:text-slate-50 disabled:opacity-20'
-          onClick={handleAddToDb}
-          disabled={name === '' || amount === ''}
-        >
-          Añadir
-        </button>
-      </footer>
+            ))}
+        </>
+      ))}
     </main>
   )
 }
