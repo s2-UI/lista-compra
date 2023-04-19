@@ -64,7 +64,7 @@ export default function Home() {
       {uniqueCategories.map(category => (
         <>
           {name === '' ? (
-            <h2 className='bg-gray-900 px-4 py-2 text-left font-semibold capitalize text-white'>{category}</h2>
+            <h2 className='bg-gray-800 px-4 py-4 text-left font-semibold capitalize text-white'>{category}</h2>
           ) : (
             ''
           )}

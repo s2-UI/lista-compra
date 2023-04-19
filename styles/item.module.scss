@@ -1,5 +1,5 @@
 .root {
-  @apply flex w-full items-center gap-4 border-b border-gray-700 bg-gray-800 px-4 py-2;
+  @apply flex w-full items-center gap-4 border-b border-gray-700 bg-gradient-to-r from-gray-950 via-gray-900 to-gray-950 px-4 py-2;
 
   .name {
     @apply basis-3/5 whitespace-nowrap;
@@ -14,22 +14,22 @@
   }
 
   .button {
-    @apply flex items-center justify-center rounded-lg border border-gray-700 bg-cyan-600 px-4 py-2 text-cyan-50;
+    @apply flex items-center justify-center rounded-lg border border-gray-700 bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 px-4 py-2 text-cyan-50;
 
     &_red {
-      @apply pointer-events-none bg-transparent text-gray-600;
+      @apply pointer-events-none bg-gradient-to-r from-transparent via-transparent to-transparent text-gray-600;
     }
   }
 
   &.selected {
-    @apply bg-blue-300;
+    @apply bg-gradient-to-r from-green-950 via-green-900 to-green-950 border-green-700;
 
     .name {
-      @apply font-bold text-cyan-700;
+      @apply font-bold text-green-700;
     }
 
     .amount {
-      @apply font-bold text-cyan-700 opacity-100 visible;
+      @apply font-bold text-green-200 opacity-100 visible;
     }
 
     .button_red {
