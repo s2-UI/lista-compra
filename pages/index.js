@@ -1,5 +1,5 @@
 import Header from '@/components/Header'
-import Item from '@/components/Item'
+import Item from '@/components2/Item'
 
 import { useState, useEffect } from 'react'
 
