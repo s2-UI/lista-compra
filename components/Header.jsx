@@ -48,6 +48,7 @@ function Header({
           <option value='empaquetados'>Empaquetados</option>
           <option value='pasta'>Pasta</option>
           <option value='verduras'>Verduras</option>
+          <option value='carrefour'>Carrefour</option>
         </select>
         <button
           className={`${styles.button} basis-2/5`}
